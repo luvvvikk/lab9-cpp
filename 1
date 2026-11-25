@@ -1,0 +1,18 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+    cout << "Трьохзначні числа, які діляться одночасно на 12 і на 15:" << endl;
+    int count = 0;
+
+    for (int num = 100; num <= 999; ++num) {
+        if (num % 12 == 0 && num % 15 == 0) {
+            cout << num << " ";
+            ++count;
+        }
+    }
+
+    cout << "\nУсього знайдено чисел: " << count << endl;
+    return 0;
+}
