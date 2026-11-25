@@ -1,0 +1,60 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <iomanip>
+
+using namespace std;
+
+int main() {
+    const double step = 0.2;
+    const double eps = 1e-9;
+
+    vector<double> values;
+
+    cout << fixed << setprecision(6);
+    cout << "Таблиця значень функції f(x, y) = ln(1 + sqrt(x + y)):" << endl;
+    cout << "---------------------------------------------" << endl;
+    cout << "     x     |     y     |     f(x, y)     " << endl;
+    cout << "---------------------------------------------" << endl;
+
+    // x в інтервалі (0; 2): 0.2, 0.4, ..., 1.8 (9 значень)
+    for (int ix = 1; ix <= 9; ++ix) {
+        double x = ix * step;
+
+        // y в інтервалі (1; 2): 1.2, 1.4, 1.6, 1.8 (4 значення)
+        for (int iy = 1; iy <= 4; ++iy) {
+            double y = 1.0 + iy * step;
+            double f = log(1.0 + sqrt(x + y));
+
+            values.push_back(f);
+            cout << setw(9) << x << " | "
+                 << setw(9) << y << " | "
+                 << setw(15) << f << endl;
+        }
+    }
+
+    cout << "---------------------------------------------" << endl;
+
+    double min_val = values[0];
+    double max_val = values[0];
+
+    for (double val : values) {
+        if (val < min_val) min_val = val;
+        if (val > max_val) max_val = val;
+    }
+
+    int min_count = 0;
+    int max_count = 0;
+
+    for (double val : values) {
+        if (fabs(val - min_val) < eps) ++min_count;
+        if (fabs(val - max_val) < eps) ++max_count;
+    }
+
+    cout << "Мінімальне значення: " << min_val
+         << ", кількість таких значень: " << min_count << endl;
+    cout << "Максимальне значення: " << max_val
+         << ", кількість таких значень: " << max_count << endl;
+
+    return 0;
+}
